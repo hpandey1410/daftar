@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      subpath_preview:
+        description: "Build for github.io/daftar instead of the daftarco.in root (only use this until the custom domain's DNS is live)"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -25,6 +30,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          GH_PAGES_SUBPATH_PREVIEW: ${{ github.event.inputs.subpath_preview == 'true' && '1' || '0' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
