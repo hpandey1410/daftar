@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
   ...(isSubpathPreview
     ? { basePath: REPO_BASE_PATH, assetPrefix: `${REPO_BASE_PATH}/` }
     : {}),
+  // Next only auto-prefixes basePath onto its own bundled JS/CSS/fonts —
+  // plain public/ file references in raw HTML (e.g. a <video src>) need it
+  // added manually, hence exposing it here for components to read.
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isSubpathPreview ? REPO_BASE_PATH : "",
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

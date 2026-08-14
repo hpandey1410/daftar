@@ -32,8 +32,8 @@ export function Hero({ playlist }: { playlist: Playlist }) {
         <video
           ref={videoRef}
           className="h-full w-full object-cover"
-          src="/hero/office-loop.mp4"
-          poster="/hero/office-loop-poster.jpg"
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/hero/office-loop.mp4`}
+          poster={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/hero/office-loop-poster.jpg`}
           autoPlay
           loop
           muted
